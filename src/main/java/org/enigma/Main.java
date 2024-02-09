@@ -18,7 +18,8 @@ public class Main {
         String msg = m.processMessage("ciao");
 
         System.out.println(msg);
-        msg = m.processMessage(msg);
+        Machine n = new Machine(list, startPositions);
+        msg = n.processMessage(msg);
         System.out.println(msg);
     }
 

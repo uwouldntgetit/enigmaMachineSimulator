@@ -13,17 +13,17 @@ public class Machine {
         rotorList = new ArrayList<>();
         for(int i = 0; i < arrStartingPos.length; i++){
 
-            arr = Rotor.fromCharToInt(getRotorCombination(listSpecs.get(i)).toCharArray());
+            arr = Rotor.fromCharArrToIntArr(getRotorCombination(listSpecs.get(i)).toCharArray());
             rotorList.add(new Rotor(arr, arrStartingPos[i]));
         }
         char[] change = getRotorCombination(EnigmaSpecifications.REFLECTOR_A).toCharArray();
-        reflector = new Rotor(Rotor.fromCharToInt(change), 0);
+        reflector = new Rotor(Rotor.fromCharArrToIntArr(change), 0);
     }
 
     // in this first version there's only one rotor and one reflector and the rotor is turned
     // on every letter
     public String processMessage(String message){
-        int[] arrMessage = Rotor.fromCharToInt(message.toCharArray());
+        int[] arrMessage = Rotor.fromCharArrToIntArr(message.toUpperCase().toCharArray());
         StringBuilder toReturn = new StringBuilder();
 
         for(int i = 0; i < arrMessage.length; i++){
@@ -41,13 +41,15 @@ public class Machine {
                 r.rotateForward();
             }
 
-            toReturn.append(encrypted);
+            toReturn.append(Rotor.fromIntToChar(encrypted));
         }
 
         return toReturn.toString();
     }
 
-    // public void setBackToStart();
+     public void setBackToStart(){
+
+     }
 
     public String getRotorCombination(EnigmaSpecifications spec){
         switch(spec){
@@ -94,6 +96,10 @@ class Rotor {
 		this(arr, startingPosition);
 	}*/
 
+//    public void setToPosition(int position){
+//        while(position > 0)
+//    }
+
     public void rotateForward(){
         int first = letterOrder[0];
 
@@ -112,7 +118,7 @@ class Rotor {
         }
     }
 
-    public static int[] fromCharToInt(char[] arr){
+    public static int[] fromCharArrToIntArr(char[] arr){
         int[] toReturn = new int[arr.length];
 
         for(int i = 0; i < arr.length; i++){
